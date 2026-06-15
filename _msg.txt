@@ -1,0 +1,1 @@
+implement Singleton pattern with Logger class
