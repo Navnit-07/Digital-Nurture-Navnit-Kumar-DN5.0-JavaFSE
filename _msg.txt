@@ -1,1 +1,1 @@
-implement Singleton pattern with Logger class
+add FactoryMethodPatternExample with Word, PDF, and Excel document factories
