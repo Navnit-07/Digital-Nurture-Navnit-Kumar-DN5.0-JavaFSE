@@ -1,1 +1,1 @@
-add FactoryMethodPatternExample with Word, PDF, and Excel document factories
+add ecommerce search with linear and binary search
