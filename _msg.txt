@@ -1,1 +1,1 @@
-ignore compiled class files
+add recursive financial forecasting exercise
