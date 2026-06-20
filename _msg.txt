@@ -1,1 +1,1 @@
-add PL/SQL control structures and stored procedures
+add JUnit and Mockito test exercises
