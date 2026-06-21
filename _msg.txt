@@ -1,1 +1,1 @@
-add JUnit and Mockito test exercises
+add SLF4J logging exercise with error and warn levels
