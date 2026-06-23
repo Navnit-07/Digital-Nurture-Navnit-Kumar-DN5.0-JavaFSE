@@ -1,1 +1,1 @@
-add SLF4J logging exercise with error and warn levels
+add LibraryManagement Spring Core project with DI
