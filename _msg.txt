@@ -1,1 +1,1 @@
-add LibraryManagement Spring Core project with DI
+add orm-learn Spring Data JPA project with Country entity
