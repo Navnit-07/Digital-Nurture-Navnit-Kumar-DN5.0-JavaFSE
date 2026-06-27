@@ -1,1 +1,1 @@
-add Hands-on 4 JPA Hibernate vs Spring Data JPA comparison
+add spring-learn project with XML country config and REST hello
