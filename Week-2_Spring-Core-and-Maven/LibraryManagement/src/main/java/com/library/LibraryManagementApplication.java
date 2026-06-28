@@ -6,17 +6,15 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import java.util.List;
 
+// Exercise 5 & 7: Load Spring IoC container and test DI
 public class LibraryManagementApplication {
 
     public static void main(String[] args) {
 
-        // Load Spring application context from XML
         ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
 
-        // Get BookService bean from Spring container
         BookService bookService = (BookService) context.getBean("bookService");
 
-        // Test dependency injection
         List<String> books = bookService.findAllBooks();
 
         System.out.println("Books in library:");

@@ -6,10 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-/*
- * Hands-on 4: Spring Data JPA approach
- * Less code - repository handles persistence, @Transactional manages transaction.
- */
 @Service
 public class EmployeeService {
 
@@ -18,6 +14,16 @@ public class EmployeeService {
 
     @Transactional
     public void addEmployee(Employee employee) {
+        employeeRepository.save(employee);
+    }
+
+    @Transactional
+    public Employee get(int id) {
+        return employeeRepository.findById(id).get();
+    }
+
+    @Transactional
+    public void save(Employee employee) {
         employeeRepository.save(employee);
     }
 }

@@ -9,6 +9,5 @@ import java.util.List;
 @Repository
 public interface CountryRepository extends JpaRepository<Country, String> {
 
-    // Find countries whose name contains the given text
     List<Country> findByNameContaining(String name);
 }

@@ -1,1 +1,1 @@
-add spring-learn project with XML country config and REST hello
+add O/R mapping for Department Employee and Skill

@@ -21,26 +21,20 @@ public class CountryService {
         return countryRepository.findAll();
     }
 
-    // Find a country based on country code
     @Transactional
     public Country findCountryByCode(String countryCode) throws CountryNotFoundException {
         Optional<Country> result = countryRepository.findById(countryCode);
-
         if (!result.isPresent()) {
             throw new CountryNotFoundException("Country not found for code: " + countryCode);
         }
-
-        Country country = result.get();
-        return country;
+        return result.get();
     }
 
-    // Add a new country
     @Transactional
     public void addCountry(Country country) {
         countryRepository.save(country);
     }
 
-    // Update country name based on code
     @Transactional
     public void updateCountry(String code, String name) throws CountryNotFoundException {
         Country country = findCountryByCode(code);
@@ -48,13 +42,11 @@ public class CountryService {
         countryRepository.save(country);
     }
 
-    // Delete country based on code
     @Transactional
     public void deleteCountry(String code) {
         countryRepository.deleteById(code);
     }
 
-    // Find countries matching partial country name
     @Transactional
     public List<Country> findByPartialName(String name) {
         return countryRepository.findByNameContaining(name);
