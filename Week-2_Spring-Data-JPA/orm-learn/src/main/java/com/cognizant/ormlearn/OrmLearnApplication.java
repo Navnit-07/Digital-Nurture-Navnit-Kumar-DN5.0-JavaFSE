@@ -17,6 +17,7 @@ import org.springframework.context.ApplicationContext;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -49,6 +50,31 @@ public class OrmLearnApplication {
 
         testGetEmployee();
         testAddEmployee();
+
+        testQueryMethods();
+    }
+
+    private static void testQueryMethods() throws ParseException {
+        LOGGER.info("=== Query Methods Start ===");
+
+        LOGGER.debug("Containing 'an': {}", countryService.findByPartialName("an"));
+        LOGGER.debug("Containing sorted: {}", countryService.findByNameContainingSorted("an"));
+        LOGGER.debug("Starting with 'In': {}", countryService.findByNameStartingWith("In"));
+
+        LOGGER.debug("Employee name containing 'a': {}", employeeService.findByNameContaining("a"));
+        LOGGER.debug("Employee name starting with 'R': {}", employeeService.findByNameStartingWith("R"));
+        LOGGER.debug("Containing + salary desc: {}", employeeService.findByNameContainingSortedBySalary("a"));
+
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        Date start = sdf.parse("1990-01-01");
+        Date end = sdf.parse("1996-12-31");
+        LOGGER.debug("DOB between: {}", employeeService.findByDateOfBirthBetween(start, end));
+
+        LOGGER.debug("Salary > 50000: {}", employeeService.findBySalaryGreaterThan(50000));
+        LOGGER.debug("Salary < 50000: {}", employeeService.findBySalaryLessThan(50000));
+        LOGGER.debug("Top 3 by salary: {}", employeeService.findTop3BySalary());
+
+        LOGGER.info("=== Query Methods End ===");
     }
 
     private static void testGetAllCountries() {

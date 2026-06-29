@@ -51,4 +51,14 @@ public class CountryService {
     public List<Country> findByPartialName(String name) {
         return countryRepository.findByNameContaining(name);
     }
+
+    @Transactional
+    public List<Country> findByNameContainingSorted(String name) {
+        return countryRepository.findByNameContainingOrderByNameAsc(name);
+    }
+
+    @Transactional
+    public List<Country> findByNameStartingWith(String prefix) {
+        return countryRepository.findByNameStartingWith(prefix);
+    }
 }

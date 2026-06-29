@@ -1,1 +1,1 @@
-add O/R mapping for Department Employee and Skill
+add Spring Data JPA query methods demos
