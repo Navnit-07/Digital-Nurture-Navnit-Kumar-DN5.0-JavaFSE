@@ -64,4 +64,29 @@ public class EmployeeService {
     public List<Employee> findTop3BySalary() {
         return employeeRepository.findTop3ByOrderBySalaryDesc();
     }
+
+    @Transactional
+    public List<Employee> getAllPermanentEmployees() {
+        return employeeRepository.getAllPermanentEmployees();
+    }
+
+    @Transactional
+    public List<Employee> getAllPermanentEmployeesWithFetch() {
+        return employeeRepository.getAllPermanentEmployeesWithFetch();
+    }
+
+    @Transactional
+    public double getAverageSalary() {
+        return employeeRepository.getAverageSalary();
+    }
+
+    @Transactional
+    public double getAverageSalaryByDepartment(int id) {
+        return employeeRepository.getAverageSalaryByDepartment(id);
+    }
+
+    @Transactional
+    public List<Employee> getAllEmployeesNative() {
+        return employeeRepository.getAllEmployeesNative();
+    }
 }

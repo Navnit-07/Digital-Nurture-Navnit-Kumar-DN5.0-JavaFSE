@@ -52,6 +52,7 @@ public class OrmLearnApplication {
         testAddEmployee();
 
         testQueryMethods();
+        testHqlAndNativeQueries();
     }
 
     private static void testQueryMethods() throws ParseException {
@@ -75,6 +76,25 @@ public class OrmLearnApplication {
         LOGGER.debug("Top 3 by salary: {}", employeeService.findTop3BySalary());
 
         LOGGER.info("=== Query Methods End ===");
+    }
+
+    private static void testHqlAndNativeQueries() {
+        LOGGER.info("=== HQL / JPQL / Native Start ===");
+
+        List<Employee> permanent = employeeService.getAllPermanentEmployees();
+        LOGGER.debug("Permanent employees:{}", permanent);
+
+        List<Employee> withFetch = employeeService.getAllPermanentEmployeesWithFetch();
+        LOGGER.debug("Permanent with fetch:{}", withFetch);
+        for (Employee e : withFetch) {
+            LOGGER.debug("Dept:{} Skills:{}", e.getDepartment(), e.getSkillList());
+        }
+
+        LOGGER.debug("Average salary:{}", employeeService.getAverageSalary());
+        LOGGER.debug("Average salary dept 2:{}", employeeService.getAverageSalaryByDepartment(2));
+        LOGGER.debug("Native all employees:{}", employeeService.getAllEmployeesNative());
+
+        LOGGER.info("=== HQL / JPQL / Native End ===");
     }
 
     private static void testGetAllCountries() {
