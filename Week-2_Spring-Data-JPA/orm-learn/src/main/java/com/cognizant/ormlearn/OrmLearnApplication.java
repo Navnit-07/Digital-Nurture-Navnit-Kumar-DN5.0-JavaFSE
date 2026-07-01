@@ -1,13 +1,7 @@
 package com.cognizant.ormlearn;
 
-import com.cognizant.ormlearn.model.Country;
-import com.cognizant.ormlearn.model.Department;
-import com.cognizant.ormlearn.model.Employee;
-import com.cognizant.ormlearn.model.Skill;
-import com.cognizant.ormlearn.service.CountryService;
-import com.cognizant.ormlearn.service.DepartmentService;
-import com.cognizant.ormlearn.service.EmployeeService;
-import com.cognizant.ormlearn.service.SkillService;
+import com.cognizant.ormlearn.model.*;
+import com.cognizant.ormlearn.service.*;
 import com.cognizant.ormlearn.service.exception.CountryNotFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,7 +11,6 @@ import org.springframework.context.ApplicationContext;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -47,68 +40,53 @@ public class OrmLearnApplication {
         testUpdateCountry();
         testDeleteCountry();
         testFindByPartialName();
-
         testGetEmployee();
         testAddEmployee();
-
         testQueryMethods();
-        testHqlAndNativeQueries();
+
+        testGetAllPermanentEmployees();
+        testAverageSalary();
+        testNativeQuery();
+    }
+
+    public static void testGetAllPermanentEmployees() {
+        LOGGER.info("Start");
+        List<Employee> employees = employeeService.getAllPermanentEmployees();
+        LOGGER.debug("Permanent Employees:{}", employees);
+        employees.forEach(e -> LOGGER.debug("Skills:{}", e.getSkillList()));
+        LOGGER.info("End");
+    }
+
+    private static void testAverageSalary() {
+        LOGGER.info("Start");
+        LOGGER.debug("Average Salary:{}", employeeService.getAverageSalary());
+        LOGGER.debug("Average Salary for Dept 2:{}", employeeService.getAverageSalary(2));
+        LOGGER.info("End");
+    }
+
+    private static void testNativeQuery() {
+        LOGGER.info("Start");
+        LOGGER.debug("Native Employees:{}", employeeService.getAllEmployeesNative());
+        LOGGER.info("End");
     }
 
     private static void testQueryMethods() throws ParseException {
         LOGGER.info("=== Query Methods Start ===");
-
-        LOGGER.debug("Containing 'an': {}", countryService.findByPartialName("an"));
         LOGGER.debug("Containing sorted: {}", countryService.findByNameContainingSorted("an"));
-        LOGGER.debug("Starting with 'In': {}", countryService.findByNameStartingWith("In"));
-
-        LOGGER.debug("Employee name containing 'a': {}", employeeService.findByNameContaining("a"));
-        LOGGER.debug("Employee name starting with 'R': {}", employeeService.findByNameStartingWith("R"));
-        LOGGER.debug("Containing + salary desc: {}", employeeService.findByNameContainingSortedBySalary("a"));
-
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-        Date start = sdf.parse("1990-01-01");
-        Date end = sdf.parse("1996-12-31");
-        LOGGER.debug("DOB between: {}", employeeService.findByDateOfBirthBetween(start, end));
-
-        LOGGER.debug("Salary > 50000: {}", employeeService.findBySalaryGreaterThan(50000));
-        LOGGER.debug("Salary < 50000: {}", employeeService.findBySalaryLessThan(50000));
         LOGGER.debug("Top 3 by salary: {}", employeeService.findTop3BySalary());
-
         LOGGER.info("=== Query Methods End ===");
-    }
-
-    private static void testHqlAndNativeQueries() {
-        LOGGER.info("=== HQL / JPQL / Native Start ===");
-
-        List<Employee> permanent = employeeService.getAllPermanentEmployees();
-        LOGGER.debug("Permanent employees:{}", permanent);
-
-        List<Employee> withFetch = employeeService.getAllPermanentEmployeesWithFetch();
-        LOGGER.debug("Permanent with fetch:{}", withFetch);
-        for (Employee e : withFetch) {
-            LOGGER.debug("Dept:{} Skills:{}", e.getDepartment(), e.getSkillList());
-        }
-
-        LOGGER.debug("Average salary:{}", employeeService.getAverageSalary());
-        LOGGER.debug("Average salary dept 2:{}", employeeService.getAverageSalaryByDepartment(2));
-        LOGGER.debug("Native all employees:{}", employeeService.getAllEmployeesNative());
-
-        LOGGER.info("=== HQL / JPQL / Native End ===");
     }
 
     private static void testGetAllCountries() {
         LOGGER.info("Start");
-        List<Country> countries = countryService.getAllCountries();
-        LOGGER.debug("countries={}", countries);
+        LOGGER.debug("countries={}", countryService.getAllCountries());
         LOGGER.info("End");
     }
 
     private static void getAllCountriesTest() {
         LOGGER.info("Start");
         try {
-            Country country = countryService.findCountryByCode("IN");
-            LOGGER.debug("Country:{}", country);
+            LOGGER.debug("Country:{}", countryService.findCountryByCode("IN"));
         } catch (CountryNotFoundException e) {
             LOGGER.error(e.getMessage());
         }
@@ -121,11 +99,6 @@ public class OrmLearnApplication {
         country.setCode("ZZ");
         country.setName("Test Country");
         countryService.addCountry(country);
-        try {
-            LOGGER.debug("Added Country:{}", countryService.findCountryByCode("ZZ"));
-        } catch (CountryNotFoundException e) {
-            LOGGER.error(e.getMessage());
-        }
         LOGGER.info("End");
     }
 
@@ -133,7 +106,6 @@ public class OrmLearnApplication {
         LOGGER.info("Start");
         try {
             countryService.updateCountry("ZZ", "Updated Test Country");
-            LOGGER.debug("Updated Country:{}", countryService.findCountryByCode("ZZ"));
         } catch (CountryNotFoundException e) {
             LOGGER.error(e.getMessage());
         }
@@ -143,7 +115,6 @@ public class OrmLearnApplication {
     private static void testDeleteCountry() {
         LOGGER.info("Start");
         countryService.deleteCountry("ZZ");
-        LOGGER.debug("Deleted country with code ZZ");
         LOGGER.info("End");
     }
 
@@ -154,32 +125,25 @@ public class OrmLearnApplication {
     }
 
     private static void testGetEmployee() {
-        LOGGER.info("=== Get Employee (ManyToOne, ManyToMany) Start ===");
+        LOGGER.info("Start");
         Employee employee = employeeService.get(1);
         LOGGER.debug("Employee:{}", employee);
         LOGGER.debug("Department:{}", employee.getDepartment());
-        LOGGER.debug("Skills:{}", employee.getSkillList());
-        LOGGER.info("=== Get Employee End ===");
+        LOGGER.info("End");
     }
 
     private static void testAddEmployee() throws ParseException {
-        LOGGER.info("=== Add Employee Start ===");
+        LOGGER.info("Start");
         Employee employee = new Employee();
         employee.setName("NewEmp");
         employee.setSalary(40000);
         employee.setPermanent(true);
         employee.setDateOfBirth(new SimpleDateFormat("yyyy-MM-dd").parse("1997-06-01"));
-
-        Department department = departmentService.get(1);
-        employee.setDepartment(department);
-
-        Set<Skill> skillSet = new HashSet<>();
-        skillSet.add(skillService.get(1));
-        skillSet.add(skillService.get(2));
-        employee.setSkillList(skillSet);
-
+        employee.setDepartment(departmentService.get(1));
+        Set<Skill> skills = new HashSet<>();
+        skills.add(skillService.get(1));
+        employee.setSkillList(skills);
         employeeService.save(employee);
-        LOGGER.debug("Saved employee:{}", employee);
-        LOGGER.info("=== Add Employee End ===");
+        LOGGER.info("End");
     }
 }

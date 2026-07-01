@@ -71,18 +71,13 @@ public class EmployeeService {
     }
 
     @Transactional
-    public List<Employee> getAllPermanentEmployeesWithFetch() {
-        return employeeRepository.getAllPermanentEmployeesWithFetch();
-    }
-
-    @Transactional
     public double getAverageSalary() {
         return employeeRepository.getAverageSalary();
     }
 
     @Transactional
-    public double getAverageSalaryByDepartment(int id) {
-        return employeeRepository.getAverageSalaryByDepartment(id);
+    public double getAverageSalary(int id) {
+        return employeeRepository.getAverageSalary(id);
     }
 
     @Transactional

@@ -1,1 +1,1 @@
-add HQL JPQL and native query demos
+add HQL fetch for permanent employees and avg native queries

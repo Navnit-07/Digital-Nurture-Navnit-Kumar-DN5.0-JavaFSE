@@ -27,13 +27,12 @@ public class Employee {
     private Date dateOfBirth;
 
     // Many employees belong to one department
-    // FetchType.EAGER = department loaded along with employee
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne
     @JoinColumn(name = "em_dp_id")
     private Department department;
 
-    // Many employees can have many skills
-    @ManyToMany(fetch = FetchType.EAGER)
+    // ManyToMany - LAZY by default; use JOIN FETCH in HQL when skills are needed
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
             name = "employee_skill",
             joinColumns = @JoinColumn(name = "es_em_id"),

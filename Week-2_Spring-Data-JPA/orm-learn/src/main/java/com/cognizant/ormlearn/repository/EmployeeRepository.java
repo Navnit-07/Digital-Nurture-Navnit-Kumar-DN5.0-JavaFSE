@@ -27,24 +27,23 @@ public interface EmployeeRepository extends JpaRepository<Employee, Integer> {
 
     List<Employee> findTop3ByOrderBySalaryDesc();
 
-    // ----- JPQL / HQL using @Query -----
-    // JPQL is almost same as HQL in Hibernate
-
-    @Query("SELECT e FROM Employee e WHERE e.permanent = true")
+    /*
+     * Hands-on 2: HQL with fetch
+     * Join links tables; fetch populates the beans (department + skills)
+     * in a single SQL query.
+     */
+    @Query(value = "SELECT e FROM Employee e left join fetch e.department d left join fetch e.skillList WHERE e.permanent = 1")
     List<Employee> getAllPermanentEmployees();
 
-    // fetch keyword loads associations in same query (avoid lazy issues)
-    @Query("SELECT e FROM Employee e LEFT JOIN FETCH e.department d LEFT JOIN FETCH e.skillList WHERE e.permanent = true")
-    List<Employee> getAllPermanentEmployeesWithFetch();
-
-    // Aggregate function AVG
-    @Query("SELECT AVG(e.salary) FROM Employee e")
+    // Hands-on 4: average salary (all employees)
+    @Query(value = "SELECT AVG(e.salary) FROM Employee e")
     double getAverageSalary();
 
-    @Query("SELECT AVG(e.salary) FROM Employee e WHERE e.department.id = :id")
-    double getAverageSalaryByDepartment(@Param("id") int id);
+    // Hands-on 4: average salary filtered by department id
+    @Query(value = "SELECT AVG(e.salary) FROM Employee e where e.department.id = :id")
+    double getAverageSalary(@Param("id") int id);
 
-    // ----- Native Query (plain SQL) -----
+    // Hands-on 5: Native Query (plain SQL)
     @Query(value = "SELECT * FROM employee", nativeQuery = true)
     List<Employee> getAllEmployeesNative();
 }
