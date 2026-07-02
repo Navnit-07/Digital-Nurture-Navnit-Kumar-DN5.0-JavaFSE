@@ -24,6 +24,7 @@ public class OrmLearnApplication {
     private static EmployeeService employeeService;
     private static DepartmentService departmentService;
     private static SkillService skillService;
+    private static AttemptService attemptService;
 
     public static void main(String[] args) throws ParseException {
         ApplicationContext context = SpringApplication.run(OrmLearnApplication.class, args);
@@ -33,6 +34,7 @@ public class OrmLearnApplication {
         employeeService = context.getBean(EmployeeService.class);
         departmentService = context.getBean(DepartmentService.class);
         skillService = context.getBean(SkillService.class);
+        attemptService = context.getBean(AttemptService.class);
 
         testGetAllCountries();
         getAllCountriesTest();
@@ -43,10 +45,10 @@ public class OrmLearnApplication {
         testGetEmployee();
         testAddEmployee();
         testQueryMethods();
-
         testGetAllPermanentEmployees();
         testAverageSalary();
         testNativeQuery();
+        testGetAttempt();
     }
 
     public static void testGetAllPermanentEmployees() {
@@ -70,11 +72,34 @@ public class OrmLearnApplication {
         LOGGER.info("End");
     }
 
+    private static void testGetAttempt() {
+        LOGGER.info("Start");
+        Attempt attempt = attemptService.getAttempt(1, 1);
+        if (attempt == null) {
+            LOGGER.error("Attempt not found. Run sql/quiz.sql first.");
+            LOGGER.info("End");
+            return;
+        }
+        LOGGER.debug("User:{}", attempt.getUser().getName());
+        LOGGER.debug("Attempt Date:{}", attempt.getDate());
+        for (AttemptQuestion aq : attempt.getAttemptQuestionList()) {
+            System.out.println(aq.getQuestion().getText());
+            int optNo = 1;
+            for (AttemptOption ao : aq.getAttemptOptionList()) {
+                Options op = ao.getOptions();
+                System.out.println(" " + optNo + ") " + op.getText()
+                        + "\t" + op.getScore() + "\t" + ao.isSelected());
+                optNo++;
+            }
+            System.out.println();
+        }
+        LOGGER.info("End");
+    }
+
     private static void testQueryMethods() throws ParseException {
-        LOGGER.info("=== Query Methods Start ===");
-        LOGGER.debug("Containing sorted: {}", countryService.findByNameContainingSorted("an"));
+        LOGGER.info("Start");
         LOGGER.debug("Top 3 by salary: {}", employeeService.findTop3BySalary());
-        LOGGER.info("=== Query Methods End ===");
+        LOGGER.info("End");
     }
 
     private static void testGetAllCountries() {
@@ -105,7 +130,7 @@ public class OrmLearnApplication {
     private static void testUpdateCountry() {
         LOGGER.info("Start");
         try {
-            countryService.updateCountry("ZZ", "Updated Test Country");
+            countryService.updateCountry("ZZ", "Updated");
         } catch (CountryNotFoundException e) {
             LOGGER.error(e.getMessage());
         }
@@ -120,7 +145,7 @@ public class OrmLearnApplication {
 
     private static void testFindByPartialName() {
         LOGGER.info("Start");
-        LOGGER.debug("Matching countries:{}", countryService.findByPartialName("ou"));
+        LOGGER.debug("{}", countryService.findByPartialName("ou"));
         LOGGER.info("End");
     }
 
@@ -128,7 +153,6 @@ public class OrmLearnApplication {
         LOGGER.info("Start");
         Employee employee = employeeService.get(1);
         LOGGER.debug("Employee:{}", employee);
-        LOGGER.debug("Department:{}", employee.getDepartment());
         LOGGER.info("End");
     }
 

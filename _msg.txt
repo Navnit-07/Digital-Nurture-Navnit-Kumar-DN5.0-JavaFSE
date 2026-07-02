@@ -1,1 +1,1 @@
-add HQL fetch for permanent employees and avg native queries
+add quiz attempt HQL with fetch joins
