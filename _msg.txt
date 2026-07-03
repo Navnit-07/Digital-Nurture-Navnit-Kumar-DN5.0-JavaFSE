@@ -1,1 +1,1 @@
-add quiz attempt HQL with fetch joins
+add Criteria Query product search demo

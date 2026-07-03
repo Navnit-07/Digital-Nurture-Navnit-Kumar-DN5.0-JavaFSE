@@ -25,6 +25,7 @@ public class OrmLearnApplication {
     private static DepartmentService departmentService;
     private static SkillService skillService;
     private static AttemptService attemptService;
+    private static ProductService productService;
 
     public static void main(String[] args) throws ParseException {
         ApplicationContext context = SpringApplication.run(OrmLearnApplication.class, args);
@@ -35,6 +36,7 @@ public class OrmLearnApplication {
         departmentService = context.getBean(DepartmentService.class);
         skillService = context.getBean(SkillService.class);
         attemptService = context.getBean(AttemptService.class);
+        productService = context.getBean(ProductService.class);
 
         testGetAllCountries();
         getAllCountriesTest();
@@ -49,6 +51,7 @@ public class OrmLearnApplication {
         testAverageSalary();
         testNativeQuery();
         testGetAttempt();
+        testCriteriaQuery();
     }
 
     public static void testGetAllPermanentEmployees() {
@@ -93,6 +96,15 @@ public class OrmLearnApplication {
             }
             System.out.println();
         }
+        LOGGER.info("End");
+    }
+
+    // Hands-on 6: Criteria Query - dynamic filters
+    private static void testCriteriaQuery() {
+        LOGGER.info("Start");
+        List<Product> products = productService.searchProducts(
+                "laptop", 4.0, "8GB", null, null);
+        LOGGER.debug("Filtered products:{}", products);
         LOGGER.info("End");
     }
 
@@ -151,8 +163,7 @@ public class OrmLearnApplication {
 
     private static void testGetEmployee() {
         LOGGER.info("Start");
-        Employee employee = employeeService.get(1);
-        LOGGER.debug("Employee:{}", employee);
+        LOGGER.debug("Employee:{}", employeeService.get(1));
         LOGGER.info("End");
     }
 
