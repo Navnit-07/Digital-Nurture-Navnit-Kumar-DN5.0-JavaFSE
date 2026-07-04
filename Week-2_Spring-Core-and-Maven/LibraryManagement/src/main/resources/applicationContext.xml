@@ -4,16 +4,11 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans
            http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-    <!-- Exercise 5: Define beans in Spring IoC container -->
+    <!-- BookRepository bean -->
     <bean id="bookRepository" class="com.library.repository.BookRepository"/>
 
-    <!--
-        Exercise 7: Constructor injection + Setter injection
-        constructor-arg -> constructor injection
-        property      -> setter injection
-    -->
+    <!-- BookService bean with BookRepository injected -->
     <bean id="bookService" class="com.library.service.BookService">
-        <constructor-arg ref="bookRepository"/>
         <property name="bookRepository" ref="bookRepository"/>
     </bean>
 

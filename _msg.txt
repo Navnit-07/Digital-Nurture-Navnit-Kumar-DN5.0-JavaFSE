@@ -1,1 +1,1 @@
-add Criteria Query product search demo
+add Country REST endpoints with XML bean loading
