@@ -1,1 +1,1 @@
-add Country REST endpoints with XML bean loading
+add JWT authentication service on port 8090
