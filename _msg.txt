@@ -1,1 +1,1 @@
-add account and loan microservices
+add Eureka server and register account loan services
