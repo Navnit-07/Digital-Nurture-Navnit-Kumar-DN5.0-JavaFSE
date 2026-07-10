@@ -1,1 +1,1 @@
-add Eureka server and register account loan services
+add greet-service and api-gateway with LogFilter
