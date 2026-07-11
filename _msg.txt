@@ -1,1 +1,1 @@
-add greet-service and api-gateway with LogFilter
+add constructor and setter injection for LibraryManagement

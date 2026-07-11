@@ -8,8 +8,20 @@ public class BookService {
 
     private BookRepository bookRepository;
 
-    // Setter for dependency injection
+    // Default constructor
+    public BookService() {
+        System.out.println("BookService: default constructor called");
+    }
+
+    // Constructor injection
+    public BookService(BookRepository bookRepository) {
+        System.out.println("BookService: constructor injection called");
+        this.bookRepository = bookRepository;
+    }
+
+    // Setter injection
     public void setBookRepository(BookRepository bookRepository) {
+        System.out.println("BookService: setter injection called");
         this.bookRepository = bookRepository;
     }
 
