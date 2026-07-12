@@ -1,1 +1,0 @@
-add constructor and setter injection for LibraryManagement
