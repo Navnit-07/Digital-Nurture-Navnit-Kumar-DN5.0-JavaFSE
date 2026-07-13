@@ -1,5 +1,8 @@
 **/Notes/
 **/*.class
+**/node_modules/
+**/dist/
+**/coverage/
 # repo
 
 # cleaned 1783659948
