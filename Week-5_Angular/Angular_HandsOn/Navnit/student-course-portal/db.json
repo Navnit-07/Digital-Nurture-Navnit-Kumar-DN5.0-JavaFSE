@@ -1,0 +1,59 @@
+{
+  "courses": [
+    {
+      "id": 1,
+      "name": "Data Structures",
+      "code": "CS101",
+      "credits": 4,
+      "gradeStatus": "passed",
+      "enrolled": false
+    },
+    {
+      "id": 2,
+      "name": "Database Systems",
+      "code": "CS201",
+      "credits": 3,
+      "gradeStatus": "pending",
+      "enrolled": false
+    },
+    {
+      "id": 3,
+      "name": "Web Technologies",
+      "code": "CS301",
+      "credits": 3,
+      "gradeStatus": "passed",
+      "enrolled": true
+    },
+    {
+      "id": 4,
+      "name": "Operating Systems",
+      "code": "CS202",
+      "credits": 4,
+      "gradeStatus": "failed",
+      "enrolled": false
+    },
+    {
+      "id": 5,
+      "name": "Angular Framework",
+      "code": "CS401",
+      "credits": 2,
+      "gradeStatus": "pending",
+      "enrolled": false
+    }
+  ],
+  "students": [
+    {
+      "id": 1,
+      "name": "Navnit Kumar",
+      "email": "navnit@college.edu",
+      "gpa": 3.8
+    }
+  ],
+  "enrollments": [
+    {
+      "id": 1,
+      "studentId": 1,
+      "courseId": 3
+    }
+  ]
+}

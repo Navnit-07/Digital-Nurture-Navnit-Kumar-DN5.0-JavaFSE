@@ -1,0 +1,29 @@
+<section class="container home">
+  <h1>{{ portalName }}</h1>
+  <p>
+    Welcome to the Student Course Portal. Browse courses, enroll for the semester, and track your
+    academic progress.
+  </p>
+
+  <div class="stats-row">
+    <div class="stat-box">Courses Available: {{ coursesAvailable }}</div>
+    <div class="stat-box">Enrolled: {{ enrolled }}</div>
+    <div class="stat-box">GPA: {{ gpa }}</div>
+  </div>
+
+  <div class="bindings">
+    <button [disabled]="!isPortalActive" (click)="onEnrollClick()">Enroll Now</button>
+    <p *ngIf="message">{{ message }}</p>
+
+    <label>
+      Search
+      <input [(ngModel)]="searchTerm" placeholder="Type a course name" />
+    </label>
+    <p>Searching for: {{ searchTerm }}</p>
+
+    <button type="button" (click)="addDemoCourse()">Add Demo Course (shared service)</button>
+  </div>
+
+  <app-course-summary-widget></app-course-summary-widget>
+  <app-notification></app-notification>
+</section>

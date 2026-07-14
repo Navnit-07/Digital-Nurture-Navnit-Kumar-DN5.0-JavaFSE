@@ -1,0 +1,24 @@
+.home h1 {
+  margin-bottom: 0.4rem;
+}
+
+.bindings {
+  margin-top: 1.25rem;
+  display: grid;
+  gap: 0.65rem;
+  max-width: 420px;
+}
+
+.bindings input {
+  display: block;
+  width: 100%;
+  margin-top: 0.25rem;
+  padding: 0.45rem;
+}
+
+.bindings button {
+  width: fit-content;
+  padding: 0.45rem 0.8rem;
+  border: 1px solid #94a3b8;
+  background: #e2e8f0;
+}

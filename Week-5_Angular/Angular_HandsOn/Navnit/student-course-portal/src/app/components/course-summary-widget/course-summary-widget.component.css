@@ -1,0 +1,11 @@
+.widget {
+  margin-top: 1.25rem;
+  padding: 0.85rem 1rem;
+  background: #eff6ff;
+  border: 1px solid #bfdbfe;
+}
+
+.widget button {
+  margin-top: 0.35rem;
+  padding: 0.3rem 0.65rem;
+}

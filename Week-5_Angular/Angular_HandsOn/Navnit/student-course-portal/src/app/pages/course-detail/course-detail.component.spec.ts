@@ -1,0 +1,20 @@
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { provideHttpClient } from '@angular/common/http';
+import { provideRouter } from '@angular/router';
+import { CourseDetailComponent } from './course-detail.component';
+
+describe('CourseDetailComponent', () => {
+  let fixture: ComponentFixture<CourseDetailComponent>;
+
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      imports: [CourseDetailComponent],
+      providers: [provideHttpClient(), provideRouter([])],
+    }).compileComponents();
+    fixture = TestBed.createComponent(CourseDetailComponent);
+  });
+
+  it('should create', () => {
+    expect(fixture.componentInstance).toBeTruthy();
+  });
+});

@@ -1,0 +1,19 @@
+<section class="container">
+  <h2>Student Profile</h2>
+  <p>Name: Navnit Kumar</p>
+  <p>Email: navnit@college.edu</p>
+
+  <h3>Enrolled Courses (EnrollmentService)</h3>
+  <ul>
+    <li *ngFor="let course of enrolledCourses">
+      {{ course.name }} ({{ course.code }}) — {{ course.credits }} credits
+    </li>
+  </ul>
+
+  <h3>Enrolled Courses (NgRx cross-slice selector)</h3>
+  <ul>
+    <li *ngFor="let course of enrolledCourses$ | async">
+      {{ course.name }} ({{ course.code }})
+    </li>
+  </ul>
+</section>

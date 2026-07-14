@@ -1,0 +1,31 @@
+<div
+  class="card"
+  appHighlight="lightblue"
+  [ngClass]="cardClasses"
+  [ngStyle]="{ 'border-left-color': borderColor }"
+  (click)="onCardClick()"
+>
+  <h3>{{ course?.name }}</h3>
+  <p>Code: {{ course?.code }}</p>
+  <p>Credits: {{ course?.credits | creditLabel }}</p>
+  <p>ID: {{ course?.id }}</p>
+
+  <div [ngSwitch]="course?.gradeStatus">
+    <span *ngSwitchCase="'passed'" class="badge badge--pass">Passed</span>
+    <span *ngSwitchCase="'failed'" class="badge badge--fail">Failed</span>
+    <span *ngSwitchCase="'pending'" class="badge badge--pending">Pending</span>
+    <span *ngSwitchDefault class="badge">Unknown</span>
+  </div>
+
+  <div class="actions">
+    <button type="button" (click)="onEnrollClick($event)">
+      {{ isEnrolled(course.id) ? 'Unenroll' : 'Enroll' }}
+    </button>
+    <button type="button" (click)="toggleDetails(); $event.stopPropagation()">Show Details</button>
+  </div>
+
+  <div *ngIf="isExpanded" class="details">
+    <p>Status: {{ course?.gradeStatus | uppercase }}</p>
+    <p>Store enrolled check uses NgRx selectEnrolledIds.</p>
+  </div>
+</div>
