@@ -1,0 +1,42 @@
+# Sample CI for Student Course Portal (Week 6 - GIT / CI/CD)
+# Copy to repo root .github/workflows/ to enable on GitHub Actions.
+
+name: Angular Student Course Portal CI
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'Week-5_Angular/**'
+      - 'Week-6_Git_CICD/**'
+  pull_request:
+    branches: [main]
+    paths:
+      - 'Week-5_Angular/**'
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: Week-5_Angular/Angular_HandsOn/Navnit/student-course-portal
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+          cache-dependency-path: Week-5_Angular/Angular_HandsOn/Navnit/student-course-portal/package-lock.json
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build
+        run: npm run build -- --configuration=production
+
+      - name: Unit tests
+        run: npx ng test --watch=false --browsers=ChromeHeadless
